@@ -7,6 +7,8 @@ public class Shoot : MonoBehaviour
 
     public GameObject target;
     public GameObject myPrefab;
+    public GameObject me;
+
     public float speed;
     public float shootInterval;
     float timer;
@@ -19,10 +21,13 @@ public class Shoot : MonoBehaviour
     public void spawnThing()
     {
         GameObject spawnedThing = Instantiate(myPrefab);
+        Destroy(spawnedThing, shootInterval + 2);
         spawnedThing.transform.position = transform.position;
         Vector3 shootDir = (target.transform.position - spawnedThing.transform.position).normalized;
         spawnedThing.GetComponent<Rigidbody>().velocity = shootDir.normalized * speed;
         spawnedThing.transform.forward = shootDir.normalized;
+
+        me.transform.forward = shootDir.normalized;
     }
     // Update is called once per frame
     void Update()
